@@ -1,0 +1,28 @@
+require "rubygems"
+
+# Load Config
+require "dotenv"
+Dotenv.load
+
+# Web Framework
+require "sinatra"
+require "sinatra/reloader"
+
+# O/R Mapper
+require "data_mapper"
+require "dm-mysql-adapter"
+
+# Template
+require "slim"
+
+# Authentication
+require "omniauth"
+require "omniauth-oauth2"
+require "omniauth-soundcloud"
+
+# SoundCloud
+require "soundcloud"
+
+require "./model"
+require "./auth"
+require "./controller"
