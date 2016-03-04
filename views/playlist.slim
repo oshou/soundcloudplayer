@@ -1,0 +1,13 @@
+table.table.table-striped.table-condenced.table-hover
+  thead
+    tr
+      th title
+      th username
+      th Download
+      th Remove
+    tbody
+      - @tracks.each do |track|
+        tr
+          td = track.title
+          td = track.user.username
+          td: a>href="#{track.uri}" #{track.uri}

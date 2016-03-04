@@ -1,19 +1,18 @@
-configure do
-  enable  :sessions
-  set     :inline_templates,true
-end
-
 get "/" do
-  if current_user
-    @name = session[:user_id]
-    slim  :index
-  else
+  if logged_in?
     slim  :signon,:layout => false
+  else
+    @client = Soundcloud.new(:access_token => session[:oauth_token])
+    redirect "/recommendtracks"
   end
 end
 
-get "/signon" do
-  redirect "/auth/soundcloud"
+get '/auth/soundcloud/callback' do
+  auth = request.env['omniauth.auth']
+  session[:user_id] = auth['uid']
+  session[:name] = auth['info']['name']
+  session[:oauth_token] = auth['credentials']['token']
+  redirect "/"
 end
 
 get "/logout" do
@@ -21,25 +20,9 @@ get "/logout" do
   redirect "/"
 end
 
-get '/auth/soundcloud/callback' do
-  auth = request.env['omniauth.auth']
-  user = User.first_or_create({:uid => auth["uid"]},{
-    :uid => auth["uid"],
-    :name => auth["username"],
-    :token => auth["token"],
-    :created_at => Time.now
-  })
-  session[:user_id] = user.id
-  redirect "/"
-end
-
-helpers do
-  def current_user
-    @current_user ||= User.get(session[:user_id]) if session[:user_id]
-  end
-end
-
 get "/recommendtracks" do
+  @client = Soundcloud.new(:access_token => session[:oauth_token])
+  @folowings = @client.get('/users/"#{session[:user_id]}"/followings')
   slim  :index
   # フォローユーザー一覧を変数格納
   # フォローユーザーのライクをdb格納、上限値を設ける
@@ -47,9 +30,30 @@ get "/recommendtracks" do
 end
 
 get "/search" do
-  # search.slimにジャンプ
+  @client = Soundcloud.new(:access_token => session[:oauth_token])
+  slim  :search
+end
+
+post "/search" do
+  @client = Soundcloud.new(:access_token => session[:oauth_token])
+  @tracks = @client.get('/tracks', :q => params[:query],:limit => 100)
+  slim  :search
 end
 
 get "/playlists" do
-  # playlists.slimにジャンプ
+  @client = Soundcloud.new(:access_token => session[:oauth_token])
+  @tracks = @client.get('/me/favorites')
+  slim  :playlist
 end
+
+private
+
+def current_user
+  return unless session[:user_id]
+  @current_user ||= user.find(session[:user_id])
+end
+
+def logged_in?
+  !!session[:user_id]
+end
+

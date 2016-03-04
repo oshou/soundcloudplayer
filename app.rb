@@ -23,6 +23,6 @@ require "omniauth-soundcloud"
 # SoundCloud
 require "soundcloud"
 
-require "./model"
 require "./auth"
+require "./model"
 require "./controller"

@@ -5,18 +5,20 @@ html
     meta charset="utf-8"
     meta name="viewport" content="width=device-width,initial-scale=1.0"
     link href="/css/bootstrap.min.css" rel="stylesheet" media="screen"
+    #link href="/css/application.css" rel="stylesheet" media="screen"
   body
     .container-fluid
       .row-fluid
         .col-sm-12
           h2 SoundCloudPlayer
+          h5 User:#{session[:name]}
           hr
       .row-fluid
         .col-sm-2
           ul.nav.nav-pills.nav-stacked
-            li: a[href="#"] Home
+            li: a[href="/"] Home
+            li: a[href="/search"] Search
             li: a[href="/playlists"] Playlist
-            li: a[href="#"] Search
             li: a[href="#"] Setting
             hr
             li: a[href="/logout"] Logout

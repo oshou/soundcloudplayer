@@ -1,0 +1,27 @@
+.row-fluid
+  .span12
+    form method="POST" action="/search" placeholder="Search for..."
+      .input-group.halfwidth
+        input.form-control type="text" name="query" placeholder="Search for..."
+        span.input-group-btn
+          button.btn.btn-default type="submit"
+            span.glyphicon.glyphicon-search
+      br
+    - if !@tracks.nil?
+        table.table.table-striped.table-condenced.table-hover
+          thead
+            tr
+              th title
+              th username
+              th Add
+              th Download
+          tbody
+            - @tracks.each do |track|
+              tr
+                td = track.title
+                td = track.user.username
+                td: form method="POST" action="/me/favorites/#{track.id}"name="favorite"
+                    a>href="/me/favorites/#{track.id}"
+                      span.glyphicon.glyphicon-plus
+                td: a>href="#{}"
+                td = track.uri
