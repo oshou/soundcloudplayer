@@ -15,6 +15,7 @@ gem "unicorn"
 
 # Template
 gem "slim"
+gem "coffee-script"
 
 # Authentication
 gem "omniauth"

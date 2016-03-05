@@ -1,9 +1,14 @@
+private
+
+def current_user
+  @current_user ||= session[:user_id]
+end
+
 get "/" do
-  if logged_in?
-    slim  :signon,:layout => false
-  else
-    @client = Soundcloud.new(:access_token => session[:oauth_token])
+  if current_user
     redirect "/recommendtracks"
+  else
+    slim  :signon,:layout => false
   end
 end
 
@@ -22,11 +27,10 @@ end
 
 get "/recommendtracks" do
   @client = Soundcloud.new(:access_token => session[:oauth_token])
-  @folowings = @client.get('/users/"#{session[:user_id]}"/followings')
+  @followings = @client.get('/me/followings')
+  # フォローユーザー一覧を変数格納
   slim  :index
   # フォローユーザー一覧を変数格納
-  # フォローユーザーのライクをdb格納、上限値を設ける
-  # フォローライクから上限20で格納
 end
 
 get "/search" do
@@ -42,18 +46,6 @@ end
 
 get "/playlists" do
   @client = Soundcloud.new(:access_token => session[:oauth_token])
-  @tracks = @client.get('/me/favorites')
+  @tracks= @client.get('/me/favorites')
   slim  :playlist
 end
-
-private
-
-def current_user
-  return unless session[:user_id]
-  @current_user ||= user.find(session[:user_id])
-end
-
-def logged_in?
-  !!session[:user_id]
-end
-

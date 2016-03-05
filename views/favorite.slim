@@ -1,0 +1,20 @@
+table.table.table-striped.table-condenced.table-hover
+  thead
+    tr
+      th Title
+      th User
+      th
+      th
+      th
+    tbody
+      - @favorites.each do |favorite|
+        tr
+          td = favorite.title
+          td = favorite.user.username
+          td: button.btn.btn-default.btn-sm type="button" onclick="playTrack"
+            span.glyphicon.glyphicon-play
+          td: button.btn.btn-default.btn-sm type="button" onclick="downloadTrack"
+            span.glyphicon.glyphicon-download-alt
+          td: button.btn.btn-default.btn-sm type="button" onclick="removeTrack"
+            span.glyphicon.glyphicon-remove
+

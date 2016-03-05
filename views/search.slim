@@ -1,5 +1,6 @@
 .row-fluid
   .span12
+    label Search Your Favorite Music
     form method="POST" action="/search" placeholder="Search for..."
       .input-group.halfwidth
         input.form-control type="text" name="query" placeholder="Search for..."
@@ -11,17 +12,19 @@
         table.table.table-striped.table-condenced.table-hover
           thead
             tr
-              th title
-              th username
-              th Add
-              th Download
+              th Title
+              th User
+              th
+              th
+              th
           tbody
             - @tracks.each do |track|
               tr
                 td = track.title
                 td = track.user.username
-                td: form method="POST" action="/me/favorites/#{track.id}"name="favorite"
-                    a>href="/me/favorites/#{track.id}"
+                td: button.btn.btn-default.btn-sm type="button" onclick="playTrack"
+                      span.glyphicon.glyphicon-play
+                td: button.btn.btn-default.btn-sm type="button" onclick="addTrack"
                       span.glyphicon.glyphicon-plus
-                td: a>href="#{}"
-                td = track.uri
+                td: button.btn.btn-default.btn-sm type="button" onclick="downloadTrack"
+                      span.glyphicon.glyphicon-download-alt
