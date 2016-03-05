@@ -6,7 +6,7 @@ end
 
 get "/" do
   if current_user
-    redirect "/recommendtracks"
+    redirect "/recommends"
   else
     slim  :signon,:layout => false
   end
@@ -25,12 +25,11 @@ get "/logout" do
   redirect "/"
 end
 
-get "/recommendtracks" do
+get "/recommends" do
   @client = Soundcloud.new(:access_token => session[:oauth_token])
   @followings = @client.get('/me/followings')
-  # フォローユーザー一覧を変数格納
-  slim  :index
-  # フォローユーザー一覧を変数格納
+  @recommends =
+  slim  :recommend
 end
 
 get "/search" do
@@ -44,8 +43,8 @@ post "/search" do
   slim  :search
 end
 
-get "/playlists" do
+get "/favorites" do
   @client = Soundcloud.new(:access_token => session[:oauth_token])
-  @tracks= @client.get('/me/favorites')
-  slim  :playlist
+  @favorites = @client.get('/me/favorites')
+  slim  :favorite
 end
