@@ -7,15 +7,17 @@ table.table.table-striped.table-condenced.table-hover
       th
       th
     tbody
-      tr
-        td = @recommends.shuffle
-        td = @recommends.sort_by{rand}[0..30]
-        td: button.btn.btn-default.btn-sm type="button" onclick="playTrack"
-            span.glyphicon.glyphicon-play
-          td: button.btn.btn-default.btn-sm type="button" onclick="downloadTrack"
-            span.glyphicon.glyphicon-download-alt
-          td: button.btn.btn-default.btn-sm type="button" onclick="removeTrack"
-            span.glyphicon.glyphicon-remove
-
-    p #{following.id}
-
+      - @followings.each do |following|
+        - @following_favorites = @client.get("/users/#{following.id}/favorites").sample(1)
+        - @following_favorites.each do |following_favorite|
+          tr
+            binding.pry
+            td = following_favorite.title
+            td = following_favorite.user.username
+            td = following.username
+            td: button.btn.btn-default.btn-sm type="button" onclick="playTrack"
+                  span.glyphicon.glyphicon-play
+            td: button.btn.btn-default.btn-sm type="button" onclick="addTrack"
+                  span.glyphicon.glyphicon-plus
+            td: button.btn.btn-default.btn-sm type="button" onclick="downloadTrack"
+                  span.glyphicon.glyphicon-download-alt
