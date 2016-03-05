@@ -1,1 +1,21 @@
-p test
+table.table.table-striped.table-condenced.table-hover
+  thead
+    tr
+      th Title
+      th User
+      th Like
+      th
+      th
+    tbody
+      tr
+        td = @recommends.shuffle
+        td = @recommends.sort_by{rand}[0..30]
+        td: button.btn.btn-default.btn-sm type="button" onclick="playTrack"
+            span.glyphicon.glyphicon-play
+          td: button.btn.btn-default.btn-sm type="button" onclick="downloadTrack"
+            span.glyphicon.glyphicon-download-alt
+          td: button.btn.btn-default.btn-sm type="button" onclick="removeTrack"
+            span.glyphicon.glyphicon-remove
+
+    p #{following.id}
+

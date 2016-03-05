@@ -12,7 +12,7 @@ get "/" do
   end
 end
 
-get '/auth/soundcloud/callback' do
+get "/auth/soundcloud/callback" do
   auth = request.env['omniauth.auth']
   session[:user_id] = auth['uid']
   session[:name] = auth['info']['name']
@@ -20,15 +20,22 @@ get '/auth/soundcloud/callback' do
   redirect "/"
 end
 
-get "/logout" do
-  session.clear
-  redirect "/"
-end
-
 get "/recommends" do
   @client = Soundcloud.new(:access_token => session[:oauth_token])
-  @followings = @client.get('/me/followings')
-  @recommends =
+  @followings = @client.get("/me/followings").[]("collection")
+  @followings.each do |following|
+    @following_favorites= @client.get("/users/#{following.id}/favorites")
+    @following_favorites.each do |following_favorite|
+      Recommend.create(
+        :user_id => following.id,
+        :user_name => following.username,
+        :track_id => following_favorite.id,
+        :track_name => following_favorite.title
+      )
+    end
+  end
+  @Recommends = Recommend.all
+  binding.pry
   slim  :recommend
 end
 
@@ -46,5 +53,6 @@ end
 get "/favorites" do
   @client = Soundcloud.new(:access_token => session[:oauth_token])
   @favorites = @client.get('/me/favorites')
+  binding.pry
   slim  :favorite
 end

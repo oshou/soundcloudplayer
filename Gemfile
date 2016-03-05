@@ -2,6 +2,9 @@ source 'https://rubygems.org'
 
 gem 'dotenv'
 
+# Debug
+gem 'pry'
+
 # Web Framework
 gem "sinatra"
 gem "sinatra-contrib"

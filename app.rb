@@ -4,6 +4,9 @@ require "rubygems"
 require "dotenv"
 Dotenv.load
 
+# Pry
+require "pry"
+
 # Web Framework
 require "sinatra"
 require "sinatra/reloader"
