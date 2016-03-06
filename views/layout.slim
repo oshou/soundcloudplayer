@@ -9,14 +9,14 @@ html
     .container-fluid
       .row-fluid
         .col-sm-12
-          h3 SoundCloudPlayer
+          h3 SoundCloudCustomPlayer
           h5 User:#{session[:name]}
           hr
       .row-fluid
         .col-sm-2
           ul.nav.nav-pills.nav-stacked
-            li: a[href="/"] Recommends
             li: a[href="/favorites"] Favorites
+            li: a[href="/recommends"] Recommends
             li: a[href="/search"] Search
             hr
             li: a[href="/signout"] Sign out

@@ -3,46 +3,40 @@ SC.initialize({
   redirect_uri: 'http://scp.dev-oshou.net/auth/soundcloud/js/callback'
 });
 
-$(".playTrack").on("click",function(){
-  var trackuri ='/tracks/'+$(this).attr("id");
-  SC.stream(trackuri).then(function(s){
-    s.play();
-  });
-});
+var myPlayer;
+var isPaused = false;
 
-/*
-var is_playing = "false"
 $(".playTrack").on("click",function(){
   var trackuri ='/tracks/'+$(this).attr("id");
-  SC.stream(trackuri).then(function(s){
-    if (is_playing === "true")
-    {
-      s.pause();
-      is_playing = "false";
-      console.log(is_playing);
-    }
-    else if(is_playing === "false")
-    {
-      s.play();
-      is_playing = "true";
-      console.log(is_playing);
-    }
+  SC.stream(trackuri).then(function(player){
+    player.play();
+    myPlayer = player;
+    console.log("State: Start");
   });
 });
-*/
 
 $(".pauseTrack").on("click",function(){
-  var trackuri ='/tracks/'+$(this).attr("id");
-  SC.stream(trackuri).then(function(s){
-    s.pause();
-    console.log(s.pause());
-  });
+  myPlayer.pause();
+  console.log("State: Pause");
+});
+
+$(".stopTrack").on("click",function(){
+  myPlayer.stop();
+  console.log("State: Stop");
 });
 
 $(".addTrack").on("click",function(){
   var trackuri ='/me/favorites/'+$(this).attr("id");
   SC.connect().then(function() {
     SC.put(trackuri);
-    console.log("add Complete");
+    console.log("Like add Complete");
+  })
+});
+
+$(".removeTrack").on("click",function(){
+  var trackuri ='/me/favorites/'+$(this).attr("id");
+  SC.connect().then(function() {
+    SC.delete(trackuri);
+    console.log("Like remove Complete");
   })
 });

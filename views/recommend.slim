@@ -6,12 +6,12 @@ table.table.table-striped.table-condenced.table-hover
       th Like
       th
       th
+      th
     tbody
       - @followings.each do |following|
         - @following_favorites = @client.get("/users/#{following.id}/favorites").sample(1)
         - @following_favorites.each do |following_favorite|
           tr
-            binding.pry
             td = following_favorite.title
             td = following_favorite.user.username
             td = following.username

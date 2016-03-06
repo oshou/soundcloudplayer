@@ -4,7 +4,7 @@ end
 
 get "/" do
   if current_user
-    redirect "/recommends"
+    redirect "/favorites"
   else
     slim  :signon,:layout => false
   end
