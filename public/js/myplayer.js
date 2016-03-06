@@ -3,22 +3,46 @@ SC.initialize({
   redirect_uri: 'http://scp.dev-oshou.net/auth/soundcloud/js/callback'
 });
 
-//SC.stream('/tracks/159906303').then(function(player){
-//  player.play();
-//});
-
-SC.stream('/tracks/159906303').then(function(sound){
-  s = sound;
+$(".playTrack").on("click",function(){
+  var trackuri ='/tracks/'+$(this).attr("id");
+  SC.stream(trackuri).then(function(s){
+    s.play();
+  });
 });
 
-$("#play").click(function(){
-  s.play();
+/*
+var is_playing = "false"
+$(".playTrack").on("click",function(){
+  var trackuri ='/tracks/'+$(this).attr("id");
+  SC.stream(trackuri).then(function(s){
+    if (is_playing === "true")
+    {
+      s.pause();
+      is_playing = "false";
+      console.log(is_playing);
+    }
+    else if(is_playing === "false")
+    {
+      s.play();
+      is_playing = "true";
+      console.log(is_playing);
+    }
+  });
+});
+*/
+
+$(".pauseTrack").on("click",function(){
+  var trackuri ='/tracks/'+$(this).attr("id");
+  SC.stream(trackuri).then(function(s){
+    s.pause();
+    console.log(s.pause());
+  });
 });
 
-$("#pause").click(function(){
-  s.pause();
-});
-
-$("#stop").click(function(){
-  s.stop();
+$(".addTrack").on("click",function(){
+  var trackuri ='/me/favorites/'+$(this).attr("id");
+  SC.connect().then(function() {
+    SC.put(trackuri);
+    console.log("add Complete");
+  })
 });

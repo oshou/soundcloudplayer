@@ -24,11 +24,6 @@ get "/auth/soundcloud/callback" do
   redirect "/"
 end
 
-
-get "/test" do
-  slim  :test,:layout => false
-end
-
 get "/auth/soundcloud/js/callback" do
   slim  :callback
 end

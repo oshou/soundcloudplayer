@@ -13,8 +13,6 @@
           thead
             tr
               th Title
-              th id
-              th uri
               th User
               th
               th
@@ -22,10 +20,10 @@
             - @tracks.each do |track|
               tr
                 td = track.title
-                td = track.id
-                td = track.uri
                 td = track.user.username
-                td: button.btn.btn-default.btn-sm type="button" onclick="playTrack"
+                td: button[class="btn btn-default btn-sm playTrack" id="#{track.id}" type="button"]
                       span.glyphicon.glyphicon-play
-                td: button.btn.btn-default.btn-sm type="button" onclick="addTrack"
+                td: button[class="btn btn-default btn-sm pauseTrack" id="#{track.id}" type="button"]
+                      span.glyphicon.glyphicon-pause
+                td: button[class="btn btn-default btn-sm addTrack" id="#{track.id}" type="button"]
                       span.glyphicon.glyphicon-plus

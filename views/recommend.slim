@@ -15,7 +15,9 @@ table.table.table-striped.table-condenced.table-hover
             td = following_favorite.title
             td = following_favorite.user.username
             td = following.username
-            td: button.btn.btn-default.btn-sm type="button" onclick="playTrack"
-                  span.glyphicon.glyphicon-play
-            td: button.btn.btn-default.btn-sm type="button" onclick="addTrack"
-                  span.glyphicon.glyphicon-plus
+            td: button[class="btn btn-default btn-sm playTrack" id="#{following_favorite.id}" type="button"]
+              span.glyphicon.glyphicon-play
+            td: button[class="btn btn-default btn-sm pauseTrack" id="#{following_favorite.id}" type="button"]
+              span.glyphicon.glyphicon-pause
+            td: button[class="btn btn-default btn-sm addTrack" id="#{following_favorite.id}" type="button"]
+              span.glyphicon.glyphicon-plus

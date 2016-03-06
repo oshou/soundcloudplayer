@@ -1,30 +1,24 @@
 SC.initialize({
-  client_id: '05b90d2bbee0117f967734492c581202',
-  redirect_uri: 'http://scp.dev-oshou.net/callback'
+  client_id: '544a211398f4cd88bb1a54ef02b51d64',
+  redirect_uri: 'http://scp.dev-oshou.net/auth/soundcloud/js/callback'
 });
 
-SC.stream('/tracks/159906303',function(sound){
-  s=sound;
+//SC.stream('/tracks/159906303').then(function(player){
+//  player.play();
+//});
+
+SC.stream('/tracks/159906303').then(function(sound){
+  s = sound;
 });
-
-SC.stream('/tracks/159906303').then(function(player){
-  player.play();
-});
-
-
-SC.stream('/tracks/159906303')
-  .then(function(player){
-    player.play();
-  });
 
 $("#play").click(function(){
   s.play();
-  console.log("play");
-  console.log(s);
 });
 
 $("#pause").click(function(){
   s.pause();
-  console.log("pause");
-  console.log(s);
+});
+
+$("#stop").click(function(){
+  s.stop();
 });

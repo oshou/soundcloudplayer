@@ -11,8 +11,10 @@ table.table.table-striped.table-condenced.table-hover
         tr
           td = favorite.title
           td = favorite.user.username
-          td: button.btn.btn-default.btn-sm type="button" onclick="playTrack"
+          td: button[class="btn btn-default btn-sm playTrack" id="#{favorite.id}" type="button"]
             span.glyphicon.glyphicon-play
-          td: button.btn.btn-default.btn-sm type="button" onclick="removeTrack"
+          td: button[class="btn btn-default btn-sm pauseTrack" id="#{favorite.id}" type="button"]
+            span.glyphicon.glyphicon-pause
+          td: button.btn.btn-default.btn-sm type="button"
             span.glyphicon.glyphicon-remove
 
