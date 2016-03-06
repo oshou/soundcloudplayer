@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>SC Player JS API</title>
+  <meta name="generator" content="TextMate http://macromates.com/">
+  <meta name="author" content="Matas Petrikas">
+</head>
+<body>
+<h1>Player JavaScript API - test public methods</h1>
+<style type="text/css" media="screen">
+  .error {
+    color: red;
+  }
+</style>
+<script type="text/javascript" charset="utf-8" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="../soundcloud.player.api.js"></script>
+<script type="text/javascript" charset="utf-8">
+  
+  // ------- Test the public methods in player  ----------
+  var testMethods = function(player, data) {
+    // please refer to the documentation for the full list of available mathods
+    var methods = ["api_load", "api_skip","api_play","api_pause","api_stop","api_toggle", "api_next","api_prev", "api_seekTo","api_setVolume","api_getFlashId","api_getVolume","api_getTrackDuration","api_getTrackPosition","api_getTracks", "api_getCurrentTrack", "api_getCurrentTrackIndex"];
+    var $container = $('#results');
+    console.log('Player node', player);
+    console.group('Testing JS API Methods');
+    for (var i = 0, l  = methods.length; i < l; i++){
+      var name = methods[i],
+          status = !!player[name];
+      $container.append("<tr class=\"" + (status ? '' : 'error') + "\"><td>" + name + "</td><td>" + (status ? 'passed' : 'failed' ) + "</td></tr>");
+      if(status){
+        console.debug(methods[i] + ' passed');
+      }else{
+        console.error(methods[i] + ' failed');
+      }
+    };
+    console.groupEnd();
+  };
+  // please refer to the documentation for the full list of available callbacks
+  soundcloud.addEventListener('onPlayerReady', testMethods);
+  
+</script>
+<!-- 
+  Please note the following differences from the standard embed code:
+  The 'object' tag has an 'id' attribute set to the player identifier (yourPlayerId),
+  also, the 'embed' tag has a 'name' attribute set to the player identifier (yourPlayerId),
+  also, there's the query parameter 'object_id' is set to the player identifier (yourPlayerId).
+  The query parameter 'enable_api' is also set to true, so the callback from Flash will be fired.
+  
+  These settings are mandatory, for the JS API to work across a wide range of browsers.
+  If you're using SWFObject or similar Flash generators, set 'id' to the player identifier,
+  also add 'enable_api:true, object_id:"yourPlayerId"' to the flashvars object
+  -->
+<object height="81" width="100%" id="yourPlayerId" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000">
+  <param name="movie" value="http://player.soundcloud.com/player.swf?url=http%3A%2F%2Fsoundcloud.com%2Fmatas%2Fhobnotropic&amp;enable_api=true&amp;object_id=yourPlayerId"></param>
+  <param name="allowscriptaccess" value="always"></param>
+  <embed allowscriptaccess="always" height="81" src="http://player.soundcloud.com/player.swf?url=http%3A%2F%2Fsoundcloud.com%2Fmatas%2Fhobnotropic&amp;enable_api=true&amp;object_id=yourPlayerId" type="application/x-shockwave-flash" width="100%" name="yourPlayerId"></embed>
+</object>
+<table id="results">
+  <tr><th>Method</th><th>Status</th></tr>
+</table>
+</body>
+</html>

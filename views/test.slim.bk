@@ -1,0 +1,36 @@
+doctype html
+html
+  head
+    meta charset="utf-8"
+    title Soundcloud test
+    script src = "http://code.jquery.com/jquery-2.0.3.min.js"
+    script src = "https://connect.soundcloud.com/sdk/sdk-3.0.0.js"
+  body
+    button#display 表示
+    button#play 再生
+    button#pause 一時停止
+    button#stop 停止
+
+    javascript:
+      var SC = require('soundcloud')
+
+      SC.initialize({
+        client_id:"05b90d2bbee0117f967734492c591202"
+      })
+
+      var s = null;
+      SC.stream('/track/293',function(sound){
+        s = sound;
+      });
+
+      var s = null
+      $('#display').click(function(){
+        s.play
+      })
+      SC.get('/user/183/tracks').then(function(tracks){
+          alert('Latest track: ' + tracks[0].title);
+      });
+
+      $('#play').click(function(){
+        s.play();
+      });
