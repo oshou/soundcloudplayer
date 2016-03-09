@@ -3,8 +3,7 @@ SC.initialize({
   redirect_uri: 'http://scp.dev-oshou.net/auth/soundcloud/js/callback'
 });
 
-var myPlayer;
-var isPaused = false;
+var myPlayer = 0;
 
 $(".playTrack").on("click",function(){
   var trackuri ='/tracks/'+$(this).attr("id");
