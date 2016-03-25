@@ -2,3 +2,4 @@
 .bundle
 .ruby-version
 vendor/bundle
+config/
