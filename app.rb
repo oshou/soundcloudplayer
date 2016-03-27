@@ -1,3 +1,6 @@
+$:.unshift File.expand_path "vendor/bundle"
+
+require "bundler/setup"
 require "rubygems"
 
 # Load Config
@@ -25,6 +28,9 @@ require "omniauth-soundcloud"
 
 # SoundCloud
 require "soundcloud"
+
+# Rspec
+require "rspec"
 
 require "./auth"
 # require "./model"

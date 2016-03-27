@@ -27,5 +27,8 @@ gem "omniauth-soundcloud",'~> 1.0.0'
 # Soundcloud
 gem "soundcloud"
 
+# Rspec
+gem "rspec"
+
 # NewRelic
 gem "newrelic_rpm"

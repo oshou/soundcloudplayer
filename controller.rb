@@ -29,25 +29,40 @@ get "/auth/soundcloud/js/callback" do
 end
 
 get "/recommends" do
-  @client = Soundcloud.new(:access_token => session[:oauth_token])
-  @followings = @client.get("/me/followings").[]("collection").sample(10)
-  slim  :recommend
+  if current_user
+    @client = Soundcloud.new(:access_token => session[:oauth_token])
+    @followings = @client.get("/me/followings").[]("collection").sample(10)
+    slim  :recommend
+  else
+    slim  :signon,:layout => false
+  end
 end
 
 get "/favorites" do
-  @client = Soundcloud.new(:access_token => session[:oauth_token])
-  @favorites = @client.get('/me/favorites')
-  binding.pry
-  slim  :favorite
+  if current_user
+    @client = Soundcloud.new(:access_token => session[:oauth_token])
+    @favorites = @client.get('/me/favorites')
+    slim  :favorite
+  else
+    slim  :signon,:layout => false
+  end
 end
 
 get "/search" do
-  @client = Soundcloud.new(:access_token => session[:oauth_token])
-  slim  :search
+  if current_user
+    @client = Soundcloud.new(:access_token => session[:oauth_token])
+    slim  :search
+  else
+    slim  :signon,:layout => false
+  end
 end
 
 post "/search" do
-  @client = Soundcloud.new(:access_token => session[:oauth_token])
-  @tracks = @client.get('/tracks', :q => params[:query],:limit => 20)
-  slim  :search
+  if current_user
+    @client = Soundcloud.new(:access_token => session[:oauth_token])
+    @tracks = @client.get('/tracks', :q => params[:query],:limit => 20)
+    slim  :search
+  else
+    slim  :signon,:layout => false
+  end
 end
