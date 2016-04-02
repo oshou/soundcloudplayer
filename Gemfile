@@ -1,9 +1,5 @@
 source 'https://rubygems.org'
 
-gem 'dotenv'
-
-# Debug
-gem 'pry'
 
 # Web Framework
 gem "sinatra"
@@ -19,6 +15,8 @@ gem "unicorn"
 # Template
 gem "slim"
 
+gem 'dotenv'
+
 # Authentication
 gem "omniauth"
 gem "omniauth-oauth2"
@@ -27,8 +25,11 @@ gem "omniauth-soundcloud",'~> 1.0.0'
 # Soundcloud
 gem "soundcloud"
 
-# Rspec
-gem "rspec"
+group :test do
+  gem "rspec"
+  gem "pry"
+  gem "pry-byebug"
+end
 
 # NewRelic
 gem "newrelic_rpm"

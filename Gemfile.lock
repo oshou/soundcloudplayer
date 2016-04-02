@@ -2,6 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     backports (3.6.8)
+    byebug (8.2.2)
     coderay (1.1.1)
     diff-lcs (1.2.5)
     dotenv (2.1.0)
@@ -44,6 +45,9 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-byebug (3.3.0)
+      byebug (~> 8.0)
+      pry (~> 0.10)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
@@ -99,6 +103,7 @@ DEPENDENCIES
   omniauth-oauth2
   omniauth-soundcloud (~> 1.0.0)
   pry
+  pry-byebug
   rspec
   sinatra
   sinatra-contrib

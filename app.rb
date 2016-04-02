@@ -1,7 +1,7 @@
 $:.unshift File.expand_path "vendor/bundle"
 
-require "bundler/setup"
 require "rubygems"
+require "bundler/setup"
 
 # Load Config
 require "dotenv"
@@ -9,14 +9,11 @@ Dotenv.load
 
 # Pry
 require "pry"
+require "pry-byebug"
 
 # Web Framework
 require "sinatra"
 require "sinatra/reloader"
-
-# O/R Mapper
-# require "data_mapper"
-# require "dm-mysql-adapter"
 
 # Template
 require "slim"
@@ -33,5 +30,4 @@ require "soundcloud"
 require "rspec"
 
 require "./auth"
-# require "./model"
 require "./controller"
