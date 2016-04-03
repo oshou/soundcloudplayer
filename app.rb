@@ -9,7 +9,7 @@ Dotenv.load
 
 # Pry
 require "pry"
-require "pry-byebug"
+require "pry-remote"
 
 # Web Framework
 require "sinatra"

@@ -25,10 +25,10 @@ gem "omniauth-soundcloud",'~> 1.0.0'
 # Soundcloud
 gem "soundcloud"
 
-group :test do
+group :test, :development do
   gem "rspec"
   gem "pry"
-  gem "pry-byebug"
+  gem "pry-remote",:require=>"pry-remote"
 end
 
 # NewRelic

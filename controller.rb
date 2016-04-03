@@ -32,6 +32,7 @@ get "/recommends" do
   if current_user
     @client = Soundcloud.new(:access_token => session[:oauth_token])
     @followings = @client.get("/me/followings").[]("collection").sample(10)
+    binding.remote_pry
     slim  :recommend
   else
     slim  :signon,:layout => false
