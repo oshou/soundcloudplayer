@@ -1,6 +1,5 @@
 .env
 .bundle
-.ruby-version
 vendor/bundle/
 config/
-log
+log/

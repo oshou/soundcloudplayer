@@ -7,10 +7,6 @@ require "bundler/setup"
 require "dotenv"
 Dotenv.load
 
-# Pry
-require "pry"
-require "pry-remote"
-
 # Web Framework
 require "sinatra"
 require "sinatra/reloader"
@@ -28,6 +24,11 @@ require "soundcloud"
 
 # Rspec
 require "rspec"
+
+# Pry
+require "pry"
+require "pry-remote"
+
 
 require "./auth"
 require "./controller"
