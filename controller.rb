@@ -2,6 +2,8 @@ def current_user
   @current_user ||= session[:user_id]
 end
 
+SAMPLE_COUNT = 10
+
 get "/" do
   if current_user
     redirect "/favorites"
@@ -31,8 +33,7 @@ end
 get "/recommends" do
   if current_user
     @client = Soundcloud.new(:access_token => session[:oauth_token])
-    @followings = @client.get("/me/followings").[]("collection").sample(10)
-    binding.remote_pry
+    @followings = @client.get("/me/followings")["collection"].sample(10)
     slim  :recommend
   else
     slim  :signon,:layout => false
